@@ -35,6 +35,28 @@ print(GDP_by_region_and_country_WB_merge.isna().sum())
 # Delete rows on IncomeGroup & Region with NaN values (Aggregate Columns)
 GDP_by_region_and_country_WB_merge_cl1=GDP_by_region_and_country_WB_merge.dropna(subset=["Region"])
 print(GDP_by_region_and_country_WB_merge_cl1.isna().sum())
-# Delete dupliate or unnecessary columns
-GDP_by_region_and_country_WB_merge_cl2= GDP_by_region_and_country_WB_merge_cl1.drop(['SpecialNotes', 'TableName',"Indicator Code","2020"], axis=1)
+# Delete dupliates or unnecessary columns:
+GDP_by_region_and_country_WB_merge_cl2= GDP_by_region_and_country_WB_merge_cl1.drop(['SpecialNotes', 'TableName',"Indicator Code","Unnamed: 5","Country Code_y","2020","Unnamed: 65"], axis=1)
 print(GDP_by_region_and_country_WB_merge_cl2.info())
+print(GDP_by_region_and_country_WB_merge_cl2.isna().any())
+# Extract to csv and review:
+GDP_by_region_and_country_WB_merge_cl2.to_csv("merged_WB_v2.csv")
+# Rename column Country Code_x to Country Code:
+GDP_by_region_and_country_WB_merge_cl3=GDP_by_region_and_country_WB_merge_cl2.rename({"Country Code_x":"Country Code"},axis=1)
+print(GDP_by_region_and_country_WB_merge_cl3.info())
+# Insert a column "Baseline_GDP" after Indicator Name with value 0 for all rows.
+
+# Forward fill by row across all columns
+GDP_by_region_and_country_WB_merge_cl4=GDP_by_region_and_country_WB_merge_cl3.ffill(axis=1)
+print(GDP_by_region_and_country_WB_merge_cl4.info())
+GDP_by_region_and_country_WB_merge_cl4.to_csv("merged_WB_v4.csv")
+
+
+
+# Delete irrelevant rows
+
+# Replace Null values
+
+
+
+# Subset the columns Country Name and Region
