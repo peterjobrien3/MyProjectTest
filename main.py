@@ -25,3 +25,8 @@ print(GDP_by_country_WB.info())
 Country_by_region_WB=pd.read_csv("Metadata_Country_API_NY.GDP.MKTP.CD_DS2_en_csv_v2_2445719.csv")
 print(Country_by_region_WB.head())
 print(Country_by_region_WB.info())
+GDP_by_region_WB_join= pd.concat([GDP_by_country_WB, Country_by_region_WB])
+print(GDP_by_region_WB_join.head())
+print(GDP_by_region_WB_join.info())
+GDP_by_region_WB_join.to_csv("WB_Joined_Data")
+
